@@ -1,0 +1,354 @@
+package my_project;
+import java.util.Scanner;
+
+class Person {
+	String firstName;
+	String lastName;
+	String gender;
+	int age;
+	double weight;
+	int[] height;
+	String ethnicGroup;
+	String religion;
+	
+	public static Person createPerson() {
+		Person person = new Person();
+		
+		person.firstName = MyClass.promptString("What is your person's first name?");
+		person.lastName = MyClass.promptString("What is your person's last name?");
+		person.gender = MyClass.promptString("What is your person's gender?");
+		
+		person.age = MyClass.promptInt("What is your person's age?");
+		while (person.age < 1) {
+			System.out.println("Error: Age must be positive. Please enter a number that is greater than 0.");
+			
+			person.age = MyClass.promptInt("What is your person's age?");
+			
+		}
+		
+		person.weight = MyClass.promptDouble("What is your person's weight (in pounds)?");
+		while (person.weight < 1) {
+			System.out.println("Error: Weight must be positive. Please enter a number that is greater than 0.");
+			
+			person.weight = MyClass.promptInt("What is your person's weight (in pounds)?");
+			
+		}
+		
+		person.height = MyClass.getHeight("What is your person's height (in feet/inches, formatted as X'Y\")?");
+		
+		while (true) {
+			if (person.height[0] < 1) {
+				System.out.println("Error: Height must be positive. Please enter a number that is greater than 0.");
+			} else if (person.height[1] > 12) {
+				System.out.println("Error: Inches must be less than 12.");
+			} else {
+				break;
+			}
+
+			person.height = MyClass.getHeight("What is your person's height (in feet/inches, formatted as X'Y\")?");
+		}
+		
+		person.ethnicGroup = MyClass.promptString("What is your person's ethnic group?");
+		person.religion = MyClass.promptString("What is your person's religious affiliation?");
+		
+		return person;
+	}
+	
+	public String getFullName(Person person) {
+		return person.firstName + " " + person.lastName;
+	}
+	
+	public void setReligion(Person person, String newReligion) {
+		person.religion = newReligion;
+	}
+
+	public void sayGreeting(Person person) {
+		String greeting;
+		String personGroup = person.ethnicGroup.toLowerCase();
+		
+		if (personGroup.equals("english") || personGroup.equals("american") || personGroup.equals("white") || personGroup.equals("european")) {
+			greeting = "Greetings!";
+		} else if (personGroup.equals("black") || personGroup.equals("african") || personGroup.equals("african-american")) {
+			greeting = "Good morning!";
+		} else if (personGroup.equals("hispanic") || personGroup.equals("latino") || personGroup.equals("latina") || personGroup.equals("spanish")) {
+			greeting = "¡Hola!";
+		} else {
+			greeting = "Hello!";
+		}
+		
+		System.out.format("Your person says \"%s\"\n", greeting);
+	}
+	
+	public void sayPrayer(Person person) {
+		String prayer;
+		String personReligion = person.religion.toLowerCase();
+		
+		if (personReligion.equals("christian") || personReligion.equals("catholic") || personReligion.equals("protestant") || personReligion.equals("mormon")) {
+			prayer = "prays in Jesus's name";
+		} else if (personReligion.equals("muslim") || personReligion.equals("shia") || personReligion.equals("sunni")) {
+			prayer = "prays to Allah";
+		} else if (personReligion.equals("jew")) {
+			prayer = "prays to God";
+		} else if (personReligion.equals("hindu") || personReligion.equals("buddhist")) {
+			prayer = "chants a mantra";
+		} else if (personReligion.equals("atheist") || personReligion.equals("agnostic")) {
+			prayer = "says a quick, insincere prayer";
+		} else {
+			prayer = String.format("says a %s prayer", personReligion);
+		}
+		
+		System.out.format("Your person %s.\n", prayer);
+		
+	}
+	
+	public void takeNap(Person person) {
+		String quality;
+		int personAge = person.age;
+		
+		if (personAge < 5) {
+			quality = "a tumultuous";
+		} else if (personAge < 10) {
+			quality = "an enjoyable";
+		} else if (personAge < 20) {
+			quality = "a restful";
+		} else if (personAge < 50) {
+			quality = "a much-needed";
+		} else {
+			quality = "a good";
+		}
+		
+		System.out.format("Your person had %s nap.\n", quality);
+		
+	}
+	
+	public void eatFood(Person person) {
+		String food;
+		double personWeight = person.weight;
+		
+		if (personWeight < 50) {
+			food = "a small snack";
+		} else if (personWeight < 100) {
+			food = "a hearty meal";
+		} else if (personWeight < 200) {
+			food = "several burgers";
+		} else {
+			food = "a ton of fast food";
+		}
+		
+		System.out.format("Your person chose to eat %s.\n", food);
+		
+	}
+	
+}
+
+class MyClass {
+	static Scanner userinput = new Scanner(System.in);
+	public static void main (String[] args){  
+		System.out.println("You will provide some information about a person, real or hypothetical.");
+		System.out.println("");
+		
+		Person userPerson = Person.createPerson();
+		
+		System.out.println("");
+		
+		System.out.format("First name: %s\n", userPerson.firstName);
+		System.out.format("Last name: %s\n", userPerson.lastName);
+		System.out.format("Gender: %s\n", userPerson.gender);
+		System.out.format("Age: %d\n", userPerson.age);
+		System.out.format("Weight: %.2f\n", userPerson.weight);
+		System.out.format("Height: %d'%d\"\n", userPerson.height[0], userPerson.height[1]);
+		System.out.format("Ethnic group: %s\n", userPerson.ethnicGroup);
+		System.out.format("Religion: %s\n", userPerson.religion);
+		
+		System.out.println("");
+		
+		//get options for use in the menu
+		String[] userOptions = {
+				"Greet", 
+				"Pray", 
+				"Nap", 
+				"Eat", 
+				"Get Name", 
+				"Convert"
+		};
+		
+		//align options to columns
+		String[] alignedUserOptions = alignOptions(userOptions);
+		
+		//loop as user goes through the programs, will break when they choose to exit
+		while (true) {
+			try {
+				//display them
+				displayOptions(alignedUserOptions);
+				String userChoice = promptString("");
+				
+				//quit if the user opts to quit
+				if (userChoice.equals("0")) {
+					break;
+				} else {
+					//if the user doesn't quit, give them their requested program
+					System.out.println("");
+					chooseProgram(userChoice, userPerson);
+				}
+				
+			} catch (Exception e) {
+				//not really sure how this would happen, but you can't be too safe
+				System.out.println("Error: An unknown error occured. Taking you back to the menu...");
+			}
+			
+			System.out.println("");
+		}
+		
+		//program end
+		System.out.println("");
+		System.out.println("Goodbye!");
+	}
+	//function to take in user input and call the program function they request
+	public static void chooseProgram(String choice, Person person) {
+		if (choice.equals("1")) {
+			person.sayGreeting(person);
+		} else if (choice.equals("2")) {
+			person.sayPrayer(person);
+		} else if (choice.equals("3")) {
+			person.takeNap(person);
+		} else if (choice.equals("4")) {
+			person.eatFood(person);
+		} else if (choice.equals("5")) {
+			String fullName = person.getFullName(person);
+			System.out.format("Your person's name is %s.\n", fullName);
+		} else if (choice.equals("6")) {
+			String userReligion = promptString("What is your person's new religious affiliation?");
+			person.setReligion(person, userReligion);
+			System.out.format("Your person is now %s.\n", person.religion);
+		} else {
+			//0 was handled earlier, so any other entries don't have a program
+			System.out.println("Error: Your entry is invalid. Please enter a number corresponding to an available program.");
+		}
+	}
+	//takes in options list, aligns them to columns
+	public static String[] alignOptions(String[] options){
+		String[] alignedOptions = options;
+		
+		for (int i = 0; i < 3; i++) {
+			String topRow = options[i];
+			String bottomRow = options[i+3];
+			
+			int columnWidth = topRow.length();
+			if (bottomRow.length() > columnWidth) {columnWidth = bottomRow.length();}
+			
+			int topRowSpaces = columnWidth - topRow.length();
+			int bottomRowSpaces = columnWidth - bottomRow.length();
+			
+			for (int j = 0; j < columnWidth; j++) {
+				//this slowly adds the required number of spaces,
+				//one per loop until the needed amount is reached
+				if (j < topRowSpaces) {alignedOptions[i] = alignedOptions[i] + " ";}
+				if (j < bottomRowSpaces) {alignedOptions[i+3] = alignedOptions[i+3] + " ";}
+			}
+			
+		}
+		
+		return alignedOptions;
+		
+	}
+	//prints pre-aligned options list
+	public static void displayOptions(String[] options){
+		
+		//get the width of the menu, accounting for spacers and number selections
+		int menuWidth = options[0].length() + options[1].length() + options[2].length() + 4*3 + 2;
+		
+		//top bar
+		for (int i = 0; i < menuWidth; i++) {
+			System.out.print("-");
+		}
+		
+		System.out.print("\n");
+		
+		//loop in groups of three so each row is accounted for at once
+		for (int i = 3; i < 7; i += 3) {
+			//i works as the visual display (1-9), whereas index is the array representation (0-8)
+			int index = i - 1;
+			
+			//loop over each item in the row and print
+			for (int j = 2; j > -1; j--) {
+				System.out.format("[%d] %s ", i-j, options[index-j]);
+	
+			}
+			
+			System.out.print("\n");
+	
+		}
+		
+		//bottom bar
+		for (int i = 0; i < menuWidth; i++) {
+			System.out.print("-");
+		}
+		
+		//display quit option
+		System.out.print("\n");
+		System.out.print("[0] Quit\n");
+	
+	}
+	public static int[] getHeight(String message) {
+		int[] feetAndInches = new int[2];
+		while (true) {
+			try {
+				String stringHeight = promptString(message);
+				String[] heightSplit = stringHeight.replace("\"", "").split("'");
+				feetAndInches[0] = Integer.parseInt(heightSplit[0]);
+				feetAndInches[1] = Integer.parseInt(heightSplit[1]);
+				
+				return feetAndInches;
+			} catch (Exception e) {
+				System.out.println("Error: height could not be parsed. Please enter a height using this format: 5'10\".");
+			}
+		}
+
+	}
+    //helper functions since my user input format is so consistent
+    public static String promptString(String message) {
+    	System.out.format("%s \n>>", message);
+    	return userinput.nextLine();
+    }
+    public static int promptInt(String message) {
+    	int input = 0;
+    	String errorMsg = "Error: That is not an integer. Please enter a valid number with no decimal component.";
+    	
+    	while (true) {
+    		try {
+		    	System.out.format("%s \n>>", message);
+		    	input = userinput.nextInt();
+		    	
+		    	userinput.nextLine();
+		    	return input;
+    		} catch (Exception e2) { 
+		    	System.out.println(errorMsg);
+		    	System.out.println("");
+		    	
+		    	userinput.nextLine();
+    		}
+    	}
+
+    }
+    public static double promptDouble(String message) {
+    	double input = 0;
+    	String errorMsg = "Error: That is not a number. Please enter a valid number with or without decimal component.";
+    	
+    	while (true) {
+    		try {
+		    	System.out.format("%s \n>>", message);
+		    	input = userinput.nextDouble();
+		    	
+		    	userinput.nextLine();
+		    	return input;
+    		} catch (Exception e2) { 
+		    	System.out.println(errorMsg);
+		    	System.out.println("");
+		    	
+		    	userinput.nextLine();
+		    	continue;
+    		}
+    	}
+
+    }
+}

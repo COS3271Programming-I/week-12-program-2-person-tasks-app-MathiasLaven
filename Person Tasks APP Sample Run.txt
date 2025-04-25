@@ -1,0 +1,109 @@
+You will provide some information about a person, real or hypothetical.
+
+What is your person's first name? 
+>>John
+What is your person's last name? 
+>>Smith
+What is your person's gender? 
+>>Male
+What is your person's age? 
+>>25
+What is your person's weight (in pounds)? 
+>>200
+What is your person's height (in feet/inches, formatted as X'Y")? 
+>>5'10"
+What is your person's ethnic group? 
+>>European
+What is your person's religious affiliation? 
+>>Protestant
+
+First name: John
+Last name: Smith
+Gender: Male
+Age: 25
+Weight: 200.00
+Height: 5'10"
+Ethnic group: European
+Religion: Protestant
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>1
+
+Your person says "Greetings!"
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>2
+
+Your person prays in Jesus's name.
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>3
+
+Your person had a much-needed nap.
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>4
+
+Your person chose to eat a ton of fast food.
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>5
+
+Your person's name is John Smith.
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>6
+
+What is your person's new religious affiliation? 
+>>Atheist
+Your person is now Atheist.
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>2
+
+Your person says a quick, insincere prayer.
+
+----------------------------------
+[1] Greet [2] Pray     [3] Nap     
+[4] Eat   [5] Get Name [6] Convert 
+----------------------------------
+[0] Quit
+ 
+>>0
+
+Goodbye!
